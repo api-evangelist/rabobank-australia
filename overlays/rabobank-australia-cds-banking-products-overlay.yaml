@@ -1,0 +1,25 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Rabobank Australia CDR Product Reference Data
+  version: 1.0.0
+extends: openapi/rabobank-australia-cds-banking-products-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: rabobank-australia
+    x-apievangelist-public-surface:
+      description: >-
+        Of the shared DSB CDS Banking API, Rabobank Australia exposes only the
+        two unauthenticated Product Reference Data operations to the public.
+      operations: [listBankingProducts, getBankingProductDetail]
+    x-apievangelist-base-url: https://openbanking.api.rabobank.com.au/public/cds-au/v1
+    x-apievangelist-confirmed-live: '2026-07-20'
+- target: $.paths['/banking/products'].get
+  update:
+    x-apievangelist-auth: none
+    x-apievangelist-confirmed: 'HTTP 200 with x-v 4; 34 products; x-fapi-interaction-id present'
+    x-apievangelist-error-envelope: cds-error
+- target: $.paths['/banking/products/{productId}'].get
+  update:
+    x-apievangelist-auth: none
+    x-apievangelist-error-envelope: cds-error

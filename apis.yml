@@ -73,6 +73,28 @@ apis:
     eligibility, constraints) at GET /banking/products/{productId}, conforming to the
     DSB Consumer Data Standards Banking API.
 common:
+- type: DomainSecurity
+  url: security/rabobank-australia-domain-security.yml
+- type: Authentication
+  url: authentication/rabobank-australia-authentication.yml
+- type: Conventions
+  url: conventions/rabobank-australia-conventions.yml
+- type: ErrorCatalog
+  url: errors/rabobank-australia-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/rabobank-australia-lifecycle.yml
+- type: Conformance
+  url: conformance/rabobank-australia-conformance.yml
+- type: DataModel
+  url: data-model/rabobank-australia-data-model.yml
+- type: MCPServer
+  url: mcp/rabobank-australia-mcp.yml
+- type: AgentSkill
+  url: skills/rabobank-australia-list-products.md
+- type: Overlay
+  url: overlays/rabobank-australia-cds-banking-products-overlay.yaml
+- type: LLMsTxt
+  url: llms/rabobank-australia-llms.txt
 - type: Website
   url: https://www.rabobank.com.au/
 - type: DeveloperPortal
@@ -81,6 +103,8 @@ common:
   url: https://www.rabobank.com.au/support/open-banking
 - type: Support
   url: https://www.rabobank.com.au/support/faqs/open-banking
+- type: TermsOfService
+  url: https://www.rabobank.com.au/termsandconditions
 - type: LinkedIn
   url: https://au.linkedin.com/company/rabobankaustralia
 maintainers:

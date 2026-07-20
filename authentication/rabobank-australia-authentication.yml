@@ -1,0 +1,32 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  Rabobank Australia Open Banking pages + CDR regime + live probe (no auth
+  required on GET /banking/products). The harvested CDS OpenAPI declares no
+  securitySchemes for the public PRD paths.
+summary:
+  types: [none, oauth2, openIdConnect]
+  public_surface_auth: none
+  authenticated_surface_auth: [oauth2, openIdConnect]
+schemes:
+- name: public-prd
+  type: none
+  applies_to:
+  - openapi/rabobank-australia-cds-banking-products-openapi.yml#listBankingProducts
+  - openapi/rabobank-australia-cds-banking-products-openapi.yml#getBankingProductDetail
+  detail: >-
+    Product Reference Data endpoints are public and unauthenticated by CDR
+    design. Confirmed live: GET /banking/products succeeds with only the
+    mandatory x-v header and no credentials.
+- name: cdr-adr-oauth2-oidc-fapi
+  type: oauth2
+  scheme_detail: OpenID Connect Hybrid flow with FAPI 1.0 Advanced security profile, PAR, PKCE and mTLS-bound tokens.
+  applies_to: authenticated CDR consumer data sharing (accounts, balances, transactions, payees, direct debits)
+  detail: >-
+    Not a self-serve public API. Authenticated CDR data sharing is available
+    only to accredited data recipients (ADRs) under the Consumer Data Right,
+    with Rabobank Australia acting as a registered data holder. Consent is
+    obtained through the CDR OAuth2 / OpenID Connect (FAPI) authorization flow;
+    access tokens are scoped to CDR banking scopes (bank:accounts.basic:read,
+    bank:transactions:read, common:customer.basic:read, etc.).
+docs: https://www.rabobank.com.au/support/open-banking

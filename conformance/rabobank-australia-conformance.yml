@@ -1,0 +1,46 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  openapi/rabobank-australia-cds-banking-products-openapi.yml + live probe +
+  Consumer Data Right regime
+standards:
+- id: cdr-consumer-data-standards
+  name: Australian Consumer Data Right (CDR) — DSB Consumer Data Standards
+  conforms: true
+  evidence: >-
+    Live GET /banking/products returns a CDS-conformant body (data.products,
+    links, meta) with x-v 4 and correct 400/406 error URNs; Rabobank Australia
+    is a mandated CDR data holder.
+- id: cds-banking-prd
+  name: CDS Banking Product Reference Data API
+  conforms: true
+  evidence: Implements GET /banking/products and GET /banking/products/{productId} per the standard.
+- id: cds-error-format
+  name: CDS error format (urn:au-cds:error:*)
+  conforms: true
+  evidence: Confirmed live urn:au-cds:error:cds-all:Header/Missing (400) and Header/UnsupportedVersion (406).
+- id: rfc9457-problem-details
+  name: RFC 9457 Problem Details
+  conforms: false
+  evidence: Uses the CDS error envelope (errors[]), not application/problem+json.
+- id: cds-pagination
+  name: CDS standard pagination (page / page-size + links + meta)
+  conforms: true
+  evidence: Confirmed live links.self/next/last and meta.totalRecords/totalPages.
+- id: fapi
+  name: FAPI 1.0 Advanced (Financial-grade API)
+  conforms: true
+  applies_to: authenticated CDR data-sharing surface only
+  evidence: CDR data holders are mandated to implement FAPI-secured OIDC for the ADR consent flow; not exercised by the public PRD surface.
+- id: oauth2
+  name: OAuth 2.0
+  conforms: true
+  applies_to: authenticated CDR data-sharing surface only
+- id: openid-connect
+  name: OpenID Connect
+  conforms: true
+  applies_to: authenticated CDR data-sharing surface only
+- id: tls13
+  name: TLS 1.3
+  conforms: true
+  evidence: Live TLS handshake negotiated TLSv1.3 on openbanking.api.rabobank.com.au.

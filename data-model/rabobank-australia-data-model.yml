@@ -1,0 +1,49 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/rabobank-australia-cds-banking-products-openapi.yml (public PRD surface) + live GET /banking/products
+scope: >-
+  Entity graph for the public Product Reference Data surface only (the two
+  unauthenticated CDR endpoints). Derived from the CDS BankingProductV4 schema
+  family and confirmed against live product payloads.
+entities:
+- name: BankingProduct
+  identifier: productId
+  id_type: uuid
+  detail: A single openly-offered banking product. Confirmed live fields include productCategory, name, description, brand, applicationUri, isTailored, lastUpdated, additionalInformation.
+  categories: [TRANS_AND_SAVINGS_ACCOUNTS, TERM_DEPOSITS, and other BankingProductCategoryV2 values]
+- name: BankingProductDetail
+  identifier: productId
+  detail: Full detail view of a product returned by GET /banking/products/{productId}.
+relationships:
+- from: BankingProductDetail
+  to: BankingProductRateV3
+  kind: has_many
+  via: depositRates / lendingRates
+- from: BankingProductDetail
+  to: BankingProductFeatureV2
+  kind: has_many
+  via: features
+- from: BankingProductDetail
+  to: BankingProductFeeV2
+  kind: has_many
+  via: fees
+- from: BankingProductDetail
+  to: BankingProductDepositRate
+  kind: has_many
+  via: depositRates
+- from: BankingProductDetail
+  to: BankingProductConstraint
+  kind: has_many
+  via: constraints
+- from: BankingProductDetail
+  to: BankingProductEligibility
+  kind: has_many
+  via: eligibility
+- from: BankingProductDetail
+  to: BankingProductAdditionalInformation
+  kind: has_one
+  via: additionalInformation
+- from: BankingProduct
+  to: BankingProductDetail
+  kind: has_one
+  via: productId

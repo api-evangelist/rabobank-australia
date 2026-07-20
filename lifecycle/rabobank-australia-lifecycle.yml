@@ -1,0 +1,34 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  DSB Consumer Data Standards versioning model + live probe of
+  https://openbanking.api.rabobank.com.au/public/cds-au/v1/banking/products
+versioning:
+  scheme: header-integer
+  header: x-v
+  current: '4'
+  detail: >-
+    Endpoint version is negotiated per-request via the x-v request header (an
+    integer). GET /banking/products currently serves x-v 4 (confirmed live);
+    x-v 1/2/3 return HTTP 406 Unsupported Version. x-min-v allows a client to
+    accept a range. This is the DSB Consumer Data Standards versioning scheme,
+    common across all Australian CDR data holders.
+  docs: https://consumerdatastandardsaustralia.github.io/standards/#versioning
+deprecation:
+  policy: cds-obsolete-versions
+  sunset_header: false
+  detail: >-
+    The Consumer Data Standards deprecate endpoint versions by publishing
+    "obsolete versions" (the harvested spec lists obsolete v1-v6 of Get Product
+    Detail). Once a version is obsoleted, requesting it via x-v returns HTTP 406.
+    Rabobank Australia follows the DSB retirement schedule; it does not publish
+    its own bank-specific deprecation policy or RFC 8594 Sunset headers.
+  docs: https://consumerdatastandardsaustralia.github.io/standards/#versioning
+sla:
+  detail: >-
+    CDR non-functional requirements (availability, performance, traffic
+    thresholds) apply to authenticated endpoints; Rabobank Australia does not
+    publish a bank-specific SLA or a public status page for the unauthenticated
+    PRD surface.
+status_page: null
+deprecated_operations: []

@@ -1,0 +1,30 @@
+# Rabobank Australia
+
+> Rabobank Australia is the Australian arm of Rabobank Group, a Netherlands-headquartered cooperative bank and leading food & agribusiness lender. As an Australian ADI it is a mandated Consumer Data Right (CDR) data holder. Its only public, unauthenticated API surface is the CDR Product Reference Data (PRD) API, conforming to the DSB Consumer Data Standards. Authenticated CDR data sharing follows the accredited data recipient (ADR) model over OAuth2 / OpenID Connect (FAPI).
+
+## APIs
+
+- [Rabobank Australia CDR Product Reference Data API](https://www.rabobank.com.au/support/open-banking): Public, unauthenticated list of banking products at GET /banking/products (confirmed live, x-v 4, 34 products). Base: https://openbanking.api.rabobank.com.au/public/cds-au/v1
+- [Rabobank Australia CDR Product Detail API](https://www.rabobank.com.au/support/open-banking): Full detail for a single product at GET /banking/products/{productId}.
+
+## Specs
+
+- [OpenAPI (harvested CDS Banking API)](openapi/rabobank-australia-cds-banking-products-openapi.yml): Shared DSB Consumer Data Standards CDR Banking API OpenAPI 3.0.3 v1.36.0; Rabobank implements the two public PRD paths.
+- [OpenAPI Overlay](overlays/rabobank-australia-cds-banking-products-overlay.yaml): API Evangelist enhancements marking the public surface.
+
+## Artifacts
+
+- [Conventions](conventions/rabobank-australia-conventions.yml): x-v versioning, page/page-size pagination, x-fapi-interaction-id tracing, CDS error envelope, no auth on PRD.
+- [Error catalog](errors/rabobank-australia-problem-types.yml): CDS urn:au-cds:error:* codes (400/406/422), live-confirmed.
+- [Authentication](authentication/rabobank-australia-authentication.yml): none on PRD; OAuth2/OIDC/FAPI for authenticated CDR data-holder surface.
+- [Conformance](conformance/rabobank-australia-conformance.yml): CDR / CDS Banking / FAPI / pagination conformance.
+- [Lifecycle](lifecycle/rabobank-australia-lifecycle.yml): x-v version negotiation; CDS obsolete-version deprecation model.
+- [Data model](data-model/rabobank-australia-data-model.yml): BankingProduct entity graph.
+- [MCP (candidate)](mcp/rabobank-australia-mcp.yml): derived tools list_banking_products / get_banking_product_detail.
+- [Agent skill](skills/rabobank-australia-list-products.md): discover Rabobank Australia banking products.
+
+## Docs
+
+- [Open Banking / CDR](https://www.rabobank.com.au/support/open-banking)
+- [Open Banking FAQs](https://www.rabobank.com.au/support/faqs/open-banking)
+- [Consumer Data Standards (DSB)](https://consumerdatastandardsaustralia.github.io/standards/)

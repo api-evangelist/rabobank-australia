@@ -1,0 +1,25 @@
+generated: '2026-07-20'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.rabobank.com.au
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 30 23:59:59 2026 GMT
+  hsts: null
+- host: openbanking.api.rabobank.com.au
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  8 23:59:59 2026 GMT
+  hsts: null
+domains:
+- domain: rabobank.com.au
+  dnssec: false
+  caa:
+  - 0 issue "quovadisglobal.com"
+  - 0 iodef "mailto:Certificate.Operations@rabobank.com"
+  - 0 issue "sectigo.com"
+  - 0 issue "digicert.com"
+  spf: true
+  dmarc: true
+  dmarc_policy: reject

@@ -1,0 +1,86 @@
+generated: '2026-07-20'
+method: searched
+source: >-
+  Data Standards Body (DSB) Consumer Data Standards + live probe of
+  https://openbanking.api.rabobank.com.au/public/cds-au/v1/banking/products
+summary: >-
+  Rabobank Australia's public API surface is the Consumer Data Right (CDR)
+  Product Reference Data (PRD) API and follows the DSB Consumer Data Standards
+  conventions exactly. Cross-cutting semantics below were confirmed against the
+  live endpoint on 2026-07-20.
+authentication:
+  style: none
+  detail: >-
+    The PRD endpoints (GET /banking/products, GET /banking/products/{productId})
+    are public and unauthenticated by CDR design — no API key, token, or client
+    credential is required. Authenticated CDR consumer data sharing (accounts,
+    balances, transactions) is not self-serve; it runs under the CDR accredited
+    data recipient (ADR) model with OAuth2 / OpenID Connect (FAPI) consent, with
+    Rabobank acting as a registered data holder.
+  see: authentication/rabobank-australia-authentication.yml
+versioning:
+  style: header
+  request_headers:
+  - name: x-v
+    required: true
+    detail: Positive integer version the client requests. Current served version is 4; x-v 1/2/3 return HTTP 406.
+  - name: x-min-v
+    required: false
+    detail: Minimum acceptable version; server responds with the highest supported version in [x-min-v, x-v].
+  response_headers:
+  - name: x-v
+    detail: Echoes the version actually served (confirmed x-v 4 on the live response).
+  negotiation: >-
+    If no version in the requested range is supported the endpoint returns HTTP
+    406 urn:au-cds:error:cds-all:Header/UnsupportedVersion (confirmed live).
+  see: lifecycle/rabobank-australia-lifecycle.yml
+pagination:
+  style: page-number
+  request_params:
+  - {name: page, in: query, default: 1, detail: Page of results to request.}
+  - {name: page-size, in: query, default: 25, detail: Number of records per page.}
+  response_fields:
+  - links.self
+  - links.first
+  - links.prev
+  - links.next
+  - links.last
+  - meta.totalRecords
+  - meta.totalPages
+  confirmed_live: >-
+    GET /banking/products?page-size=1 returned links.self / links.next /
+    links.last and meta.totalRecords=34, meta.totalPages=34.
+filtering:
+  params:
+  - {name: effective, values: [CURRENT, FUTURE, ALL], default: CURRENT}
+  - {name: updated-since, type: DateTimeString, detail: Only products updated after the given timestamp.}
+  - {name: brand, type: string}
+  - {name: product-category, type: BankingProductCategoryV2}
+request_tracing:
+  header: x-fapi-interaction-id
+  detail: >-
+    Response carries an x-fapi-interaction-id correlation UUID (confirmed live,
+    e.g. 475e349b-8787-4bc5-b633-3e1ca8c5b0e6). Clients may send their own to be
+    echoed back for tracing.
+error_envelope:
+  format: cds-error
+  shape: '{ "errors": [ { "code": "urn:au-cds:error:*", "title": "...", "detail": "...", "meta": {} } ] }'
+  rfc9457: false
+  see: errors/rabobank-australia-problem-types.yml
+idempotency:
+  supported: false
+  detail: >-
+    The public PRD surface is read-only (GET only); there are no state-changing
+    operations, so no idempotency-key contract applies.
+rate_limiting:
+  signaling: not-documented
+  detail: >-
+    Rabobank does not publish rate-limit headers or a throttling policy for the
+    public PRD endpoint. CDR non-functional requirements set traffic thresholds
+    for authenticated endpoints, not the unauthenticated PRD surface.
+content_type:
+  request: none
+  response: application/json
+transport:
+  scheme: https
+  tls: TLSv1.3

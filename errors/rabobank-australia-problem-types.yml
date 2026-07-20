@@ -1,0 +1,70 @@
+generated: '2026-07-20'
+method: searched
+source: openapi/rabobank-australia-cds-banking-products-openapi.yml + live probe of https://openbanking.api.rabobank.com.au/public/cds-au/v1/banking/products
+format: cds-error
+notes: >-
+  Rabobank Australia's public CDR Product Reference Data surface uses the Data
+  Standards Body (DSB) Consumer Data Standards error format, NOT RFC 9457
+  application/problem+json. Errors are returned as a JSON object with an
+  `errors[]` array; each item carries `code` (a urn:au-cds:error:* URN), `title`
+  (human label), `detail` (specifics) and an optional `meta`. Two of the codes
+  below were confirmed live: a request missing the x-v header returned HTTP 400
+  urn:au-cds:error:cds-all:Header/Missing; x-v: 3 returned HTTP 406
+  urn:au-cds:error:cds-all:Header/UnsupportedVersion.
+envelope:
+  shape: '{ "errors": [ { "code": "...", "title": "...", "detail": "...", "meta": {} } ] }'
+  array_field: errors
+  code_field: code
+  title_field: title
+  detail_field: detail
+problems:
+- status: 400
+  code: urn:au-cds:error:cds-all:Header/Missing
+  title: Missing Required Header
+  detail_example: x-v header parameter is mandatory
+  remediation: Send the mandatory x-v request header set to a supported positive integer version (currently 4).
+  confirmed_live: true
+  source_operation: openapi/rabobank-australia-cds-banking-products-openapi.yml#listBankingProducts
+- status: 400
+  code: urn:au-cds:error:cds-all:Header/InvalidVersion
+  title: Invalid Version
+  remediation: Set x-v (and optional x-min-v) to a valid positive integer.
+  source_operation: openapi/rabobank-australia-cds-banking-products-openapi.yml#listBankingProducts
+- status: 400
+  code: urn:au-cds:error:cds-all:Field/Invalid
+  title: Invalid Field
+  remediation: Correct the offending query parameter (e.g. effective, product-category, brand).
+  source_operation: openapi/rabobank-australia-cds-banking-products-openapi.yml#listBankingProducts
+- status: 400
+  code: urn:au-cds:error:cds-all:Field/Missing
+  title: Missing Required Field
+  source_operation: openapi/rabobank-australia-cds-banking-products-openapi.yml#listBankingProducts
+- status: 400
+  code: urn:au-cds:error:cds-all:Field/InvalidDateTime
+  title: Invalid Date
+  remediation: Supply updated-since as a valid CDS DateTimeString (RFC3339/ISO8601 UTC).
+  source_operation: openapi/rabobank-australia-cds-banking-products-openapi.yml#listBankingProducts
+- status: 400
+  code: urn:au-cds:error:cds-all:Field/InvalidPageSize
+  title: Invalid Page Size
+  remediation: Supply page-size as a positive integer within the permitted range.
+  source_operation: openapi/rabobank-australia-cds-banking-products-openapi.yml#listBankingProducts
+- status: 404
+  code: urn:au-cds:error:cds-banking:Authorisation/InvalidBankingAccount
+  title: Invalid Banking Product
+  detail_example: Requested productId does not exist
+  remediation: Use a productId returned by GET /banking/products.
+  note: Applies to GET /banking/products/{productId}; the CDS resource-not-found error for an unknown product identifier.
+  source_operation: openapi/rabobank-australia-cds-banking-products-openapi.yml#getBankingProductDetail
+- status: 406
+  code: urn:au-cds:error:cds-all:Header/UnsupportedVersion
+  title: Unsupported Version
+  detail_example: No versions supported in the requested range of x-min-v to x-v.
+  remediation: Request x-v 4 (the currently served version). x-v 1/2/3 are not supported.
+  confirmed_live: true
+  source_operation: openapi/rabobank-australia-cds-banking-products-openapi.yml#listBankingProducts
+- status: 422
+  code: urn:au-cds:error:cds-all:Field/InvalidPage
+  title: Invalid Page
+  remediation: Request a page number within the available range (see meta.totalPages).
+  source_operation: openapi/rabobank-australia-cds-banking-products-openapi.yml#listBankingProducts

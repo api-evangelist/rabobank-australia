@@ -1,0 +1,19 @@
+generated: '2026-07-20'
+method: searched
+source: live probes 2026-07-20
+notes: >-
+  No usable /.well-known/ discovery document was found. The API host blocks
+  /.well-known/ paths at the WAF (HTTP 403 Access Denied) and the corporate
+  host returns a maintenance HTML page for security.txt (not a valid RFC 9116
+  document). No catalogued document; no WellKnown pointer emitted.
+hosts:
+- host: https://openbanking.api.rabobank.com.au
+  documents:
+  - {path: /.well-known/openid-configuration, status: 403, file: null}
+  - {path: /.well-known/oauth-authorization-server, status: 403, file: null}
+  - {path: /.well-known/security.txt, status: 403, file: null}
+  - {path: /.well-known/api-catalog, status: 403, file: null}
+- host: https://www.rabobank.com.au
+  documents:
+  - {path: /.well-known/security.txt, status: 200, file: null, valid: false, note: returns a "Website Under Maintenance" HTML page, not an RFC 9116 security.txt}
+  - {path: /.well-known/openid-configuration, status: 403, file: null}
