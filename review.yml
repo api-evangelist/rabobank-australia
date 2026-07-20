@@ -1,0 +1,70 @@
+aid: rabobank-australia
+name: Rabobank Australia
+review:
+  question: Does Rabobank Australia expose a confirmed public API surface, and what is its posture?
+  answer: true
+  date: '2026-07-20'
+  reviewer: API Evangelist
+  cdrPrdConfirmed: true
+findings:
+  summary: |
+    Rabobank Australia's only public, unauthenticated API surface is the
+    Consumer Data Right (CDR) Product Reference Data (PRD) API, mandated for
+    every active Australian ADI under the Consumer Data Right. It was
+    confirmed live: GET https://openbanking.api.rabobank.com.au/public/cds-au/v1/banking/products
+    returned HTTP 200 with a CDR-conformant JSON body (data.products array,
+    x-v response header = 4, meta.totalRecords = 34, brand "Rabobank").
+    Version negotiation is enforced per the standard: x-v: 3 / 2 / 1 return
+    HTTP 406 (urn:au-cds:error:cds-all:Header/UnsupportedVersion) and x-v: 4
+    is the served version. The companion GET /banking/products/{productId}
+    (Get Product Detail) is part of the same public PRD surface. There is no
+    broad, general-purpose developer/API program (no Up-style personal-banking
+    API, no NAB/CommBank-style public developer portal, no GitHub organization);
+    Rabobank Australia is a food & agribusiness lender and online-savings bank,
+    and its API footprint begins and ends with the regulatory CDR surface. The
+    host https://openbanking.api.rabobank.com.au/ serves a React single-page
+    "Open Banking" consumer portal at /ob/ (the CDR data-sharing dashboard),
+    not developer documentation.
+  authModel: |
+    The PRD endpoints are unauthenticated public data by CDR design. All other
+    (consumer/account) CDR data sharing is authenticated under the CDR
+    accredited data recipient (ADR) model using OAuth2 / OpenID Connect with
+    FAPI security profiles and consent — Rabobank participates as a CDR data
+    holder, not via a self-serve public API program.
+  specProvenance: |
+    CDS-STANDARD, not bank-proprietary. Rabobank Australia does not publish its
+    own OpenAPI/Swagger contract. The harvested spec at
+    openapi/rabobank-australia-cds-banking-products-openapi.yml is the shared
+    Data Standards Body (DSB) Consumer Data Standards "CDR Banking API"
+    (OpenAPI 3.0.3, version 1.36.0), captured verbatim from
+    https://consumerdatastandardsaustralia.github.io/standards/includes/swagger/cds_banking.json
+    and losslessly serialized to YAML. Rabobank's public PRD surface implements
+    the two unauthenticated paths within it: GET /banking/products and
+    GET /banking/products/{productId}. The remaining paths in that standard
+    describe authenticated CDR banking endpoints and are the shared industry
+    contract, not a Rabobank-specific promise.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://openbanking.api.rabobank.com.au/public/cds-au/v1
+      documented: true
+      note: CDR PRD; confirmed HTTP 200 at GET /banking/products with x-v 4.
+  endpointsConfirmedRest:
+    - GET https://openbanking.api.rabobank.com.au/public/cds-au/v1/banking/products
+    - GET https://openbanking.api.rabobank.com.au/public/cds-au/v1/banking/products/{productId}
+sources:
+  - url: https://openbanking.api.rabobank.com.au/public/cds-au/v1/banking/products
+    type: APIReference
+    note: Live CDR PRD endpoint. HTTP 200 with x-v 4; 34 products; brand "Rabobank". x-v 1/2/3 return HTTP 406.
+  - url: https://www.rabobank.com.au/support/open-banking
+    type: Documentation
+    note: Rabobank Australia's consumer-facing Open Banking / Consumer Data Right information page.
+  - url: https://www.rabobank.com.au/support/faqs/open-banking
+    type: Documentation
+    note: Open Banking FAQs.
+  - url: https://openbanking.api.rabobank.com.au/ob/
+    type: DeveloperPortal
+    note: React SPA "Open Banking" consumer data-sharing portal (not developer docs).
+  - url: https://consumerdatastandardsaustralia.github.io/standards/includes/swagger/cds_banking.json
+    type: OpenAPI
+    note: Source of the harvested spec — the shared DSB CDS "CDR Banking API" OpenAPI 3.0.3 v1.36.0.

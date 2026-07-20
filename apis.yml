@@ -1,0 +1,88 @@
+aid: rabobank-australia
+url: https://raw.githubusercontent.com/api-evangelist/rabobank-australia/refs/heads/main/apis.yml
+name: Rabobank Australia
+kind: company
+description: Rabobank Australia is the Australian arm of Rabobank Group, the Netherlands-headquartered
+  cooperative bank and one of the world's leading food and agribusiness specialist
+  lenders. In Australia it operates as an Authorised Deposit-taking Institution (ADI),
+  offering rural and agribusiness finance alongside consumer online savings accounts
+  and term deposits, including SMSF products. As a member-focused, cooperatively owned
+  institution rather than a shareholder-driven bank, its Australian retail and business
+  deposit products fall under the Consumer Data Right (CDR / Open Banking). Rabobank
+  therefore exposes a public, unauthenticated Product Reference Data (PRD) API that
+  conforms to the Data Standards Body (DSB) Consumer Data Standards, while authenticated
+  consumer data sharing follows the CDR accredited data recipient (ADR) model built
+  on OAuth2 / OpenID Connect (FAPI).
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Financial
+- Banks
+- Open Banking
+- CDR
+- Consumer Banking
+- Australia
+- Agribusiness
+- Product Reference Data
+created: '2026-07-20'
+modified: '2026-07-20'
+specificationVersion: '0.19'
+apis:
+- aid: rabobank-australia:rabobank-australia-cdr-product-reference-data-api
+  name: Rabobank Australia CDR Product Reference Data API
+  tags:
+  - CDR
+  - Open Banking
+  - Product Reference Data
+  - Banking
+  - Products
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.rabobank.com.au/support/open-banking
+  baseURL: https://openbanking.api.rabobank.com.au/public/cds-au/v1
+  properties:
+  - url: https://www.rabobank.com.au/support/open-banking
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+    type: APIReference
+  - url: openapi/rabobank-australia-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Public, unauthenticated Consumer Data Right Product Reference Data (PRD)
+    API listing Rabobank Australia's openly available banking products (transaction
+    and savings accounts, term deposits including SMSF). Confirmed live at GET /banking/products
+    (HTTP 200, x-v 4, 34 products) conforming to the DSB Consumer Data Standards Banking
+    API.
+- aid: rabobank-australia:rabobank-australia-cdr-product-detail-api
+  name: Rabobank Australia CDR Product Detail API
+  tags:
+  - CDR
+  - Open Banking
+  - Product Reference Data
+  - Banking
+  - Product Detail
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.rabobank.com.au/support/open-banking
+  baseURL: https://openbanking.api.rabobank.com.au/public/cds-au/v1
+  properties:
+  - url: https://www.rabobank.com.au/support/open-banking
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-product-detail
+    type: APIReference
+  - url: openapi/rabobank-australia-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: Public, unauthenticated Consumer Data Right endpoint returning the full
+    detail for a single Rabobank Australia banking product (rates, fees, features,
+    eligibility, constraints) at GET /banking/products/{productId}, conforming to the
+    DSB Consumer Data Standards Banking API.
+common:
+- type: Website
+  url: https://www.rabobank.com.au/
+- type: DeveloperPortal
+  url: https://openbanking.api.rabobank.com.au/ob/
+- type: Documentation
+  url: https://www.rabobank.com.au/support/open-banking
+- type: Support
+  url: https://www.rabobank.com.au/support/faqs/open-banking
+- type: LinkedIn
+  url: https://au.linkedin.com/company/rabobankaustralia
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
