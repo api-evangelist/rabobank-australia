@@ -1,0 +1,56 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  Data Standards Body (DSB) Consumer Data Standards — Authorisation Scopes +
+  authentication/rabobank-australia-authentication.yml. The harvested CDS
+  Banking OpenAPI declares no securitySchemes (resource-endpoint spec), so
+  scopes are taken from the standardized CDR authorisation model that every
+  Australian banking data holder (including Rabobank Australia) implements.
+docs: https://consumerdatastandardsaustralia.github.io/standards/#authorisation-scopes
+notes: >-
+  These scopes apply ONLY to the consumer-AUTHORIZED CDR surface (accounts,
+  balances, transactions, direct debits, scheduled payments, payees), reached by
+  accredited data recipients (ADRs) via the CDR OAuth2 / OpenID Connect (FAPI 1.0
+  Advanced) authorization flow over mTLS. The public Product Reference Data
+  endpoints (GET /banking/products, /banking/products/{productId}) require NO
+  scope. Rabobank Australia does not self-serve these scopes; access is governed
+  by the CDR Register and accreditation regime.
+schemes:
+- name: cdr-oauth2-oidc-fapi
+  type: oauth2
+  scheme_detail: >-
+    OpenID Connect Hybrid flow, FAPI 1.0 Advanced security profile, PAR + PKCE,
+    mTLS-bound (sender-constrained) access tokens. Authorization/token endpoints
+    are discovered per data holder through the CDR Register, not published as a
+    self-serve developer endpoint.
+scopes:
+- scope: openid
+  description: OpenID Connect authentication; required to obtain an ID token for the consent.
+  category: openid
+- scope: profile
+  description: OpenID Connect end-user profile claims permitted under the CDR.
+  category: openid
+- scope: common:customer.basic:read
+  description: Read basic customer information (name, occupation for individuals; agent/organisation basics for businesses).
+  category: common
+- scope: common:customer.detail:read
+  description: Read detailed customer information (contact details — phone, email, addresses — in addition to basic).
+  category: common
+- scope: bank:accounts.basic:read
+  description: Read the list of accounts and basic account information (masked number, product category, balance).
+  category: banking
+- scope: bank:accounts.detail:read
+  description: Read detailed account information (full account attributes, features, rates, fees, deposit/lending detail).
+  category: banking
+- scope: bank:transactions:read
+  description: Read account transactions, including detail and description.
+  category: banking
+- scope: bank:payees:read
+  description: Read the consumer's saved payees (domestic, international, biller).
+  category: banking
+- scope: bank:regular_payments:read
+  description: Read direct debits and scheduled/regular payments configured on the consumer's accounts.
+  category: banking
+- scope: cdr:registration
+  description: Dynamic Client Registration (admin) scope used by accredited data recipients to manage their registration with the data holder.
+  category: admin

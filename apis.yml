@@ -166,6 +166,14 @@ common:
   url: lifecycle/rabobank-australia-lifecycle.yml
 - type: Conformance
   url: conformance/rabobank-australia-conformance.yml
+- type: Compliance
+  url: conformance/rabobank-australia-conformance.yml
+- type: OAuthScopes
+  url: scopes/rabobank-australia-scopes.yml
+- type: Deprecation
+  url: lifecycle/rabobank-australia-lifecycle.yml
+- type: APIReference
+  url: https://consumerdatastandardsaustralia.github.io/standards/#banking-apis
 - type: DataModel
   url: data-model/rabobank-australia-data-model.yml
 - type: MCPServer
