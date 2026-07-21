@@ -1,3 +1,11 @@
+# Provenance: This is the SHARED Data Standards Body (DSB) Consumer Data Standards
+# "CDR Banking API" (cds_banking) v1.36.0, harvested verbatim from
+# consumerdatastandardsaustralia.github.io/standards. It is the standardized surface
+# EVERY Australian ADI (including Rabobank Australia) is required to implement under
+# the Consumer Data Right; it is NOT bank-proprietary. Only the /banking/products and
+# /banking/products/{productId} paths are PUBLIC/unauthenticated; all other paths are
+# consumer-AUTHORIZED via the CDR accredited data recipient (ADR) model (OAuth2/OIDC
+# FAPI over MTLS). Rabobank's live public host: openbanking.api.rabobank.com.au
 openapi: 3.0.3
 info:
   contact:

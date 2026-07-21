@@ -24,7 +24,7 @@ tags:
 - Agribusiness
 - Product Reference Data
 created: '2026-07-20'
-modified: '2026-07-20'
+modified: '2026-07-21'
 specificationVersion: '0.19'
 apis:
 - aid: rabobank-australia:rabobank-australia-cdr-product-reference-data-api
@@ -35,9 +35,10 @@ apis:
   - Product Reference Data
   - Banking
   - Products
+  - Public API
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://www.rabobank.com.au/support/open-banking
-  baseURL: https://openbanking.api.rabobank.com.au/public/cds-au/v1
+  baseURL: https://openbanking.api.rabobank.com.au/public/cds-au/v1/banking/products
   properties:
   - url: https://www.rabobank.com.au/support/open-banking
     type: Documentation
@@ -45,33 +46,113 @@ apis:
     type: APIReference
   - url: openapi/rabobank-australia-cds-banking-products-openapi.yml
     type: OpenAPI
-  description: Public, unauthenticated Consumer Data Right Product Reference Data (PRD)
-    API listing Rabobank Australia's openly available banking products (transaction
-    and savings accounts, term deposits including SMSF). Confirmed live at GET /banking/products
-    (HTTP 200, x-v 4, 34 products) conforming to the DSB Consumer Data Standards Banking
-    API.
-- aid: rabobank-australia:rabobank-australia-cdr-product-detail-api
-  name: Rabobank Australia CDR Product Detail API
+  description: 'PUBLIC / unauthenticated Consumer Data Right Product Reference Data
+    (PRD) surface covering GET /banking/products (list) and GET /banking/products/{productId}
+    (detail: rates, fees, features, eligibility, constraints) for Rabobank Australia''s
+    openly available banking products (online savings, transaction accounts, term
+    deposits including SMSF). Confirmed live at GET /banking/products (HTTP 200, x-v
+    4, 34 products, 2026-07-21). Conforms to the DSB Consumer Data Standards Banking
+    API (cds_banking v1.36.0); no accreditation or consumer consent required.'
+- aid: rabobank-australia:rabobank-australia-cdr-accounts-balances-api
+  name: Rabobank Australia CDR Accounts & Balances API
   tags:
   - CDR
   - Open Banking
-  - Product Reference Data
   - Banking
-  - Product Detail
+  - Accounts
+  - Balances
+  - Consumer Authorized
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://www.rabobank.com.au/support/open-banking
-  baseURL: https://openbanking.api.rabobank.com.au/public/cds-au/v1
+  baseURL: https://openbanking.api.rabobank.com.au/cds-au/v1/banking/accounts
   properties:
   - url: https://www.rabobank.com.au/support/open-banking
     type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-product-detail
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
     type: APIReference
   - url: openapi/rabobank-australia-cds-banking-products-openapi.yml
     type: OpenAPI
-  description: Public, unauthenticated Consumer Data Right endpoint returning the full
-    detail for a single Rabobank Australia banking product (rates, fees, features,
-    eligibility, constraints) at GET /banking/products/{productId}, conforming to the
-    DSB Consumer Data Standards Banking API.
+  description: 'CONSUMER-AUTHORIZED Consumer Data Right banking surface: Get Accounts
+    (GET /banking/accounts), Get Bulk Balances (POST/GET /banking/accounts/balances),
+    Get Account Balance (GET /banking/accounts/{accountId}/balance) and Get Account
+    Detail (GET /banking/accounts/{accountId}). Not public — requires an accredited
+    data recipient (ADR) and explicit consumer consent, reached via the bank''s MTLS
+    resource endpoint (OAuth2/OIDC FAPI) discovered through the CDR Register. Conforms
+    to the DSB Consumer Data Standards Banking API (cds_banking v1.36.0).'
+- aid: rabobank-australia:rabobank-australia-cdr-transactions-api
+  name: Rabobank Australia CDR Transactions API
+  tags:
+  - CDR
+  - Open Banking
+  - Banking
+  - Transactions
+  - Consumer Authorized
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.rabobank.com.au/support/open-banking
+  baseURL: https://openbanking.api.rabobank.com.au/cds-au/v1/banking/accounts/{accountId}/transactions
+  properties:
+  - url: https://www.rabobank.com.au/support/open-banking
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+    type: APIReference
+  - url: openapi/rabobank-australia-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: 'CONSUMER-AUTHORIZED Consumer Data Right transactions surface: Get Transactions
+    For Account (GET /banking/accounts/{accountId}/transactions, with date/amount/text
+    filtering) and Get Transaction Detail (GET /banking/accounts/{accountId}/transactions/{transactionId}).
+    Not public — requires an accredited data recipient (ADR) and explicit consumer
+    consent over the bank''s MTLS resource endpoint (OAuth2/OIDC FAPI). Conforms to
+    the DSB Consumer Data Standards Banking API (cds_banking v1.36.0).'
+- aid: rabobank-australia:rabobank-australia-cdr-direct-debits-scheduled-payments-api
+  name: Rabobank Australia CDR Direct Debits & Scheduled Payments API
+  tags:
+  - CDR
+  - Open Banking
+  - Banking
+  - Direct Debits
+  - Scheduled Payments
+  - Consumer Authorized
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.rabobank.com.au/support/open-banking
+  baseURL: https://openbanking.api.rabobank.com.au/cds-au/v1/banking/accounts/direct-debits
+  properties:
+  - url: https://www.rabobank.com.au/support/open-banking
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+    type: APIReference
+  - url: openapi/rabobank-australia-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: 'CONSUMER-AUTHORIZED Consumer Data Right surface for recurring debits
+    and scheduled payments: Get Direct Debits For Account and Get Bulk Direct Debits
+    (/banking/accounts/{accountId}/direct-debits and /banking/accounts/direct-debits),
+    plus Get Scheduled Payments For Account and Get Bulk Scheduled Payments (/banking/accounts/{accountId}/payments/scheduled
+    and /banking/payments/scheduled). Not public — requires an accredited data recipient
+    (ADR) and explicit consumer consent over the bank''s MTLS resource endpoint (OAuth2/OIDC
+    FAPI). Conforms to the DSB Consumer Data Standards Banking API (cds_banking v1.36.0).'
+- aid: rabobank-australia:rabobank-australia-cdr-payees-api
+  name: Rabobank Australia CDR Payees API
+  tags:
+  - CDR
+  - Open Banking
+  - Banking
+  - Payees
+  - Consumer Authorized
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://www.rabobank.com.au/support/open-banking
+  baseURL: https://openbanking.api.rabobank.com.au/cds-au/v1/banking/payees
+  properties:
+  - url: https://www.rabobank.com.au/support/open-banking
+    type: Documentation
+  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+    type: APIReference
+  - url: openapi/rabobank-australia-cds-banking-products-openapi.yml
+    type: OpenAPI
+  description: 'CONSUMER-AUTHORIZED Consumer Data Right payees surface: Get Payees
+    (GET /banking/payees, the consumer''s saved payee list) and Get Payee Detail (GET
+    /banking/payees/{payeeId}, including domestic/international/biller payload). Not
+    public — requires an accredited data recipient (ADR) and explicit consumer consent
+    over the bank''s MTLS resource endpoint (OAuth2/OIDC FAPI). Conforms to the DSB
+    Consumer Data Standards Banking API (cds_banking v1.36.0).'
 common:
 - type: DomainSecurity
   url: security/rabobank-australia-domain-security.yml
