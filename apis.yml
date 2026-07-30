@@ -13,7 +13,19 @@ description: Rabobank Australia is the Australian arm of Rabobank Group, the Net
   conforms to the Data Standards Body (DSB) Consumer Data Standards, while authenticated
   consumer data sharing follows the CDR accredited data recipient (ADR) model built
   on OAuth2 / OpenID Connect (FAPI).
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/rabobank-australia.png
 tags:
 - Financial
 - Banks
@@ -27,132 +39,167 @@ created: '2026-07-20'
 modified: '2026-07-21'
 specificationVersion: '0.19'
 apis:
-- aid: rabobank-australia:rabobank-australia-cdr-product-reference-data-api
-  name: Rabobank Australia CDR Product Reference Data API
-  tags:
-  - CDR
-  - Open Banking
-  - Product Reference Data
-  - Banking
-  - Products
-  - Public API
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: rabobank-australia:rabobank-australia-banking-account-balances-api
+  name: Rabobank Australia Banking Account Balances API
+  description: Banking Account Balance endpoints
   humanURL: https://www.rabobank.com.au/support/open-banking
   baseURL: https://openbanking.api.rabobank.com.au/public/cds-au/v1/banking/products
-  properties:
-  - url: https://www.rabobank.com.au/support/open-banking
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
-    type: APIReference
-  - url: openapi/rabobank-australia-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: 'PUBLIC / unauthenticated Consumer Data Right Product Reference Data
-    (PRD) surface covering GET /banking/products (list) and GET /banking/products/{productId}
-    (detail: rates, fees, features, eligibility, constraints) for Rabobank Australia''s
-    openly available banking products (online savings, transaction accounts, term
-    deposits including SMSF). Confirmed live at GET /banking/products (HTTP 200, x-v
-    4, 34 products, 2026-07-21). Conforms to the DSB Consumer Data Standards Banking
-    API (cds_banking v1.36.0); no accreditation or consumer consent required.'
-- aid: rabobank-australia:rabobank-australia-cdr-accounts-balances-api
-  name: Rabobank Australia CDR Accounts & Balances API
   tags:
-  - CDR
-  - Open Banking
-  - Banking
-  - Accounts
-  - Balances
-  - Consumer Authorized
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.rabobank.com.au/support/open-banking
-  baseURL: https://openbanking.api.rabobank.com.au/cds-au/v1/banking/accounts
+  - Banking Account Balances
   properties:
-  - url: https://www.rabobank.com.au/support/open-banking
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
-    type: APIReference
-  - url: openapi/rabobank-australia-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: 'CONSUMER-AUTHORIZED Consumer Data Right banking surface: Get Accounts
-    (GET /banking/accounts), Get Bulk Balances (POST/GET /banking/accounts/balances),
-    Get Account Balance (GET /banking/accounts/{accountId}/balance) and Get Account
-    Detail (GET /banking/accounts/{accountId}). Not public — requires an accredited
-    data recipient (ADR) and explicit consumer consent, reached via the bank''s MTLS
-    resource endpoint (OAuth2/OIDC FAPI) discovered through the CDR Register. Conforms
-    to the DSB Consumer Data Standards Banking API (cds_banking v1.36.0).'
-- aid: rabobank-australia:rabobank-australia-cdr-transactions-api
-  name: Rabobank Australia CDR Transactions API
+  - type: OpenAPI
+    url: openapi/rabobank-australia-banking-account-balances-api-openapi.yml
+  - type: Documentation
+    url: https://www.rabobank.com.au/support/open-banking
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+- aid: rabobank-australia:rabobank-australia-banking-account-direct-debits-api
+  name: Rabobank Australia Banking Account Direct Debits API
+  description: Banking Account Direct Debit endpoints
+  humanURL: https://www.rabobank.com.au/support/open-banking
+  baseURL: https://openbanking.api.rabobank.com.au/public/cds-au/v1/banking/products
   tags:
-  - CDR
-  - Open Banking
-  - Banking
-  - Transactions
-  - Consumer Authorized
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.rabobank.com.au/support/open-banking
-  baseURL: https://openbanking.api.rabobank.com.au/cds-au/v1/banking/accounts/{accountId}/transactions
+  - Banking Account Direct Debits
   properties:
-  - url: https://www.rabobank.com.au/support/open-banking
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
-    type: APIReference
-  - url: openapi/rabobank-australia-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: 'CONSUMER-AUTHORIZED Consumer Data Right transactions surface: Get Transactions
-    For Account (GET /banking/accounts/{accountId}/transactions, with date/amount/text
-    filtering) and Get Transaction Detail (GET /banking/accounts/{accountId}/transactions/{transactionId}).
-    Not public — requires an accredited data recipient (ADR) and explicit consumer
-    consent over the bank''s MTLS resource endpoint (OAuth2/OIDC FAPI). Conforms to
-    the DSB Consumer Data Standards Banking API (cds_banking v1.36.0).'
-- aid: rabobank-australia:rabobank-australia-cdr-direct-debits-scheduled-payments-api
-  name: Rabobank Australia CDR Direct Debits & Scheduled Payments API
+  - type: OpenAPI
+    url: openapi/rabobank-australia-banking-account-direct-debits-api-openapi.yml
+  - type: Documentation
+    url: https://www.rabobank.com.au/support/open-banking
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+- aid: rabobank-australia:rabobank-australia-banking-account-scheduled-payments-api
+  name: Rabobank Australia Banking Account Scheduled Payments API
+  description: Banking Account Scheduled Payment endpoints
+  humanURL: https://www.rabobank.com.au/support/open-banking
+  baseURL: https://openbanking.api.rabobank.com.au/public/cds-au/v1/banking/products
   tags:
-  - CDR
-  - Open Banking
-  - Banking
-  - Direct Debits
-  - Scheduled Payments
-  - Consumer Authorized
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.rabobank.com.au/support/open-banking
-  baseURL: https://openbanking.api.rabobank.com.au/cds-au/v1/banking/accounts/direct-debits
+  - Banking Account Scheduled Payments
   properties:
-  - url: https://www.rabobank.com.au/support/open-banking
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
-    type: APIReference
-  - url: openapi/rabobank-australia-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: 'CONSUMER-AUTHORIZED Consumer Data Right surface for recurring debits
-    and scheduled payments: Get Direct Debits For Account and Get Bulk Direct Debits
-    (/banking/accounts/{accountId}/direct-debits and /banking/accounts/direct-debits),
-    plus Get Scheduled Payments For Account and Get Bulk Scheduled Payments (/banking/accounts/{accountId}/payments/scheduled
-    and /banking/payments/scheduled). Not public — requires an accredited data recipient
-    (ADR) and explicit consumer consent over the bank''s MTLS resource endpoint (OAuth2/OIDC
-    FAPI). Conforms to the DSB Consumer Data Standards Banking API (cds_banking v1.36.0).'
-- aid: rabobank-australia:rabobank-australia-cdr-payees-api
-  name: Rabobank Australia CDR Payees API
+  - type: OpenAPI
+    url: openapi/rabobank-australia-banking-account-scheduled-payments-api-openapi.yml
+  - type: Documentation
+    url: https://www.rabobank.com.au/support/open-banking
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+- aid: rabobank-australia:rabobank-australia-banking-account-transactions-api
+  name: Rabobank Australia Banking Account Transactions API
+  description: Banking Account Transaction endpoints
+  humanURL: https://www.rabobank.com.au/support/open-banking
+  baseURL: https://openbanking.api.rabobank.com.au/public/cds-au/v1/banking/products
   tags:
-  - CDR
-  - Open Banking
-  - Banking
-  - Payees
-  - Consumer Authorized
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://www.rabobank.com.au/support/open-banking
-  baseURL: https://openbanking.api.rabobank.com.au/cds-au/v1/banking/payees
+  - Banking Account Transactions
   properties:
-  - url: https://www.rabobank.com.au/support/open-banking
-    type: Documentation
-  - url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
-    type: APIReference
-  - url: openapi/rabobank-australia-cds-banking-products-openapi.yml
-    type: OpenAPI
-  description: 'CONSUMER-AUTHORIZED Consumer Data Right payees surface: Get Payees
-    (GET /banking/payees, the consumer''s saved payee list) and Get Payee Detail (GET
-    /banking/payees/{payeeId}, including domestic/international/biller payload). Not
-    public — requires an accredited data recipient (ADR) and explicit consumer consent
-    over the bank''s MTLS resource endpoint (OAuth2/OIDC FAPI). Conforms to the DSB
-    Consumer Data Standards Banking API (cds_banking v1.36.0).'
+  - type: OpenAPI
+    url: openapi/rabobank-australia-banking-account-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://www.rabobank.com.au/support/open-banking
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+- aid: rabobank-australia:rabobank-australia-banking-accounts-api
+  name: Rabobank Australia Banking Accounts API
+  description: Banking Account endpoints
+  humanURL: https://www.rabobank.com.au/support/open-banking
+  baseURL: https://openbanking.api.rabobank.com.au/public/cds-au/v1/banking/products
+  tags:
+  - Banking Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/rabobank-australia-banking-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://www.rabobank.com.au/support/open-banking
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+- aid: rabobank-australia:rabobank-australia-banking-payees-api
+  name: Rabobank Australia Banking Payees API
+  description: Banking Payee endpoints
+  humanURL: https://www.rabobank.com.au/support/open-banking
+  baseURL: https://openbanking.api.rabobank.com.au/public/cds-au/v1/banking/products
+  tags:
+  - Banking Payees
+  properties:
+  - type: OpenAPI
+    url: openapi/rabobank-australia-banking-payees-api-openapi.yml
+  - type: Documentation
+    url: https://www.rabobank.com.au/support/open-banking
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
+- aid: rabobank-australia:rabobank-australia-banking-products-api
+  name: Rabobank Australia Banking Products API
+  description: Banking Product endpoints
+  humanURL: https://www.rabobank.com.au/support/open-banking
+  baseURL: https://openbanking.api.rabobank.com.au/public/cds-au/v1/banking/products
+  tags:
+  - Banking Products
+  properties:
+  - type: OpenAPI
+    url: openapi/rabobank-australia-banking-products-api-openapi.yml
+  - type: Documentation
+    url: https://www.rabobank.com.au/support/open-banking
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-products
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-accounts
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-transactions-for-account
+  - type: APIReference
+    url: >-
+      https://consumerdatastandardsaustralia.github.io/standards/#get-direct-debits-for-account
+  - type: APIReference
+    url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
 common:
 - type: DomainSecurity
   url: security/rabobank-australia-domain-security.yml
