@@ -1,0 +1,26 @@
+{
+  "provider": "rabobank-australia",
+  "sources": [
+    "rabobank-australia-banking-account-balances-api-openapi.yml",
+    "rabobank-australia-banking-account-direct-debits-api-openapi.yml",
+    "rabobank-australia-banking-account-scheduled-payments-api-openapi.yml",
+    "rabobank-australia-banking-account-transactions-api-openapi.yml",
+    "rabobank-australia-banking-accounts-api-openapi.yml",
+    "rabobank-australia-banking-payees-api-openapi.yml",
+    "rabobank-australia-banking-products-api-openapi.yml"
+  ],
+  "outputs": [
+    "rabobank-australia-banking-account-balances-api-openapi.yml",
+    "rabobank-australia-banking-account-direct-debits-api-openapi.yml",
+    "rabobank-australia-banking-account-scheduled-payments-api-openapi.yml",
+    "rabobank-australia-banking-account-transactions-api-openapi.yml",
+    "rabobank-australia-banking-accounts-api-openapi.yml",
+    "rabobank-australia-banking-payees-api-openapi.yml",
+    "rabobank-australia-banking-products-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
