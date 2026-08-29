@@ -213,6 +213,9 @@ apis:
   - type: APIReference
     url: https://consumerdatastandardsaustralia.github.io/standards/#get-payees
 common:
+- type: CapabilityMap
+  url: capabilities/rabobank-australia-capability-edges.yml
+  name: Rabobank Australia Business Capability Map
 - type: DomainSecurity
   url: security/rabobank-australia-domain-security.yml
 - type: Authentication
