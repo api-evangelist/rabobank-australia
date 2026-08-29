@@ -13,6 +13,18 @@ description: Rabobank Australia is the Australian arm of Rabobank Group, the Net
   conforms to the Data Standards Body (DSB) Consumer Data Standards, while authenticated
   consumer data sharing follows the CDR accredited data recipient (ADR) model built
   on OAuth2 / OpenID Connect (FAPI).
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
